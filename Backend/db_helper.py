@@ -1,11 +1,28 @@
 # import mysql.connector
 import pymysql
+import os
+from dotenv import load_dotenv
 
+load_dotenv()  # Load .env for local development
+
+# Environment variables (set in .env or Render dashboard)
+DB_HOST = os.environ.get("DB_HOST")        # e.g. "aws.connect.psdb.io"
+DB_USER = os.environ.get("DB_USER")        # e.g. "your_user"
+DB_PASSWORD = os.environ.get("DB_PASSWORD")# e.g. "your_password"
+DB_NAME = os.environ.get("DB_NAME")
+
+# cnx = pymysql.connect(
+#     host="localhost",
+#     user="root",
+#     password='9917050240',
+#     database='pandeyji_eatery'
+# )
 cnx = pymysql.connect(
-    host="localhost",
-    user="root",
-    password='9917050240',
-    database='pandeyji_eatery'
+    host=DB_HOST,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    database=DB_NAME,
+    ssl={"ssl": {}}  # Required for some hosted DBs like PlanetScale
 )
 print("Database connected !")
 # cnx = mysql.connector.connect(
