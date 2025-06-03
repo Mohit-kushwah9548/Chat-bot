@@ -3,7 +3,8 @@ from fastapi import FastAPI
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from Backend import generic_helper, db_helper
+# from Backend import generic_helper, db_helper
+import generic_helper, db_helper
 
 app = FastAPI()
 
