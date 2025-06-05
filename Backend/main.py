@@ -147,11 +147,29 @@
 
 ## for mongo db
 from fastapi import FastAPI, Request
+from fastapi.openapi.models import Response
 from fastapi.responses import JSONResponse, FileResponse
 
 import generic_helper, db_helper
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+origins = [
+    "*",  # Or specify domains you want to allow
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[" https://mohit-chatbot-53209.web.app ", "https://your-firebase-domain.firebaseapp.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+
 
 inprogress_orders = {}
 
@@ -165,7 +183,8 @@ async def root():
 async def favicon():
     # Put your favicon.ico file in the "static" folder in your project root
     # and serve it here. Or return 404 if you don't have one.
-    return FileResponse("static/favicon.ico")
+    # return FileResponse("static/favicon.ico") sataic folder not create so i use
+    return Response(status_code=204)
 
 @app.post("/")
 async def handle_request(request: Request):
