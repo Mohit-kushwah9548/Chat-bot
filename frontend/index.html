@@ -42,7 +42,50 @@
     </section>
 
 	
- <iframe class="chat-bot" width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/26e44813-1fb1-492f-a8b8-6f745839704e"></iframe>
+<!-- <iframe class="chat-bot" width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/26e44813-1fb1-492f-a8b8-6f745839704e"></iframe>-->
 	</div>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="Buddy-Chatbot-for-food-delivery"
+  agent-id="f3bab5bd-b9a9-4376-86b8-d9c692adff99"
+  language-code="en"
+></df-messenger>
+
+<script>
+    window.onload = function() {
+        fetch("https://food-chat-bot-onrr.onrender.com/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                queryResult: {
+                    intent: {
+                        displayName: "order.add - context: ongoing-order"
+                    },
+                    parameters: {
+                        "food-item": ["pizza"],
+                        "number": [2]
+                    },
+                    outputContexts: [
+                        {
+                            name: "projects/demo-project/agent/sessions/abc123/contexts/ongoing-order"
+                        }
+                    ]
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert("Response: " + data.fulfillmentText);
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("Failed to place order.");
+        });
+    };
+</script>
+
 </body>
 </html>
